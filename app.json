@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "cours-react-native",
+    "slug": "cours-react-native",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  },
+  "name": "cours-react-native"
+}
