@@ -9,9 +9,10 @@ import {
   formatDateDay,
   formatDateHour,
   isToday,
-  isTomorrow
+  isTomorrow,
 } from "../functions/functions";
 import CardTempDay from "./cardTempDay";
+import DetailsTemp from "./detailsTemp";
 
 const CardWeather = ({ weatherData }) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -19,7 +20,6 @@ const CardWeather = ({ weatherData }) => {
   if (!weatherData || !weatherData.list || weatherData.list.length === 0) {
     return null; // Si weatherData n'est pas défini ou ne contient pas de données, ne rien afficher
   }
-
 
   // Supposons que vous souhaitiez afficher les informations de la première entrée dans la liste
   const firstWeatherEntry = weatherData.list[selectedIndex];
@@ -48,43 +48,18 @@ const CardWeather = ({ weatherData }) => {
         {formatDate(firstWeatherEntry.dt_txt)}
       </Text>
 
-      <View style={[styles.containerOpt, styles.containerOptWithShadow]}>
-        <Text style={[styles.text, styles.textOption]}>
-          <Image
-            resizeMode="contain"
-            source={require("../assets/rain.png")}
-            style={{ width: 20, height: 20 }}
-          ></Image>
-          {firstWeatherEntry.pop}%
-        </Text>
-        <Text style={[styles.text, styles.textOption]}>
-          <Image
-            resizeMode="contain"
-            source={require("../assets/humidity.png")}
-            style={{ width: 20, height: 20 }}
-          ></Image>{" "}
-          {firstWeatherEntry.main.humidity}%{" "}
-        </Text>
-        <Text style={[styles.text, styles.textOption]}>
-          <Image
-            resizeMode="contain"
-            source={require("../assets/wind.png")}
-            style={{ width: 20, height: 20 }}
-          ></Image>{" "}
-          {firstWeatherEntry.wind.speed} km/h
-        </Text>
-      </View>
+      <DetailsTemp weatherEntry={firstWeatherEntry}></DetailsTemp>
 
       <View style={[styles.containerTempDay]}>
-      <Text style={[styles.text, styles.textDay]}>
-  {isToday(firstWeatherEntry.dt_txt)
-    ? "Aujourd'hui " + formatDateDay(firstWeatherEntry.dt_txt)
-    : isTomorrow(firstWeatherEntry.dt_txt)
-    ? "Demain " + formatDateDay(firstWeatherEntry.dt_txt)
-    : formatDateDay(firstWeatherEntry.dt_txt)}
-</Text>
+        <Text style={[styles.text, styles.textDay]}>
+          {isToday(firstWeatherEntry.dt_txt)
+            ? "Aujourd'hui " + formatDateDay(firstWeatherEntry.dt_txt)
+            : isTomorrow(firstWeatherEntry.dt_txt)
+            ? "Demain " + formatDateDay(firstWeatherEntry.dt_txt)
+            : formatDateDay(firstWeatherEntry.dt_txt)}
+        </Text>
         <View style={[styles.TempDayFlex]}>
-        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+          <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
             {weatherData.list.slice(0, 10).map((entry, indexMap) => (
               <CardTempDay
                 key={indexMap}
@@ -113,20 +88,7 @@ const styles = StyleSheet.create({
   textTemp: {
     fontSize: 50,
   },
-  containerOpt: {
-    width: 320,
-    height: 50,
-    marginTop: 20,
-    padding: 10,
-    justifyContent: "space-around",
-    alignItems: "center",
-    flexDirection: "row",
-    borderRadius: 20,
-    backgroundColor: "rgba(0, 16, 38, .3)",
-  },
-  textOption: {
-    color: "rgba(255, 255, 255, 1)",
-  },
+ 
   containerTempDay: {
     width: 320,
     height: 190,

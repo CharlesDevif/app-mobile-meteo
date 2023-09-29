@@ -31,7 +31,7 @@ export function formatDate(dateString) {
     const hour = date.getHours();
     const minute = date.getMinutes();
   
-    return `${dayOfWeek} ${dayOfMonth} ${month} ${hour}h`;
+    return `${dayOfWeek} ${dayOfMonth} ${month}`;
   }
  export function formatDateHour(dateString) {
     const daysOfWeek = [
